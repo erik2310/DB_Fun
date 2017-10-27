@@ -47,23 +47,46 @@ public class DB_Statements {
 
         public void createTable(String tableName) {
             //SQL statement
-        String query = "create table if not exists " + tableName + "(" +
-                "id int not null auto_increment, " +
-                "myName varchar(28), " +
-                "address varchar(28), " +
-                "primary key (id)" +
-                ")";
-        try {
-            // Connection
-            stmt = con.createStatement();
-            // Execute query
-            stmt.executeUpdate(query);
-            System.out.println("\n--Table " + tableName + " created--");
-        }   catch (SQLException ex) {
-            System.out.println("\n--Query did not execute--");
-            ex.printStackTrace();
+            String query = "create table if not exists " + tableName + "(" +
+                    "id int not null auto_increment, " +
+                    "myName varchar(28), " +
+                    "address varchar(28), " +
+                    "primary key (id)" +
+                    ")";
+            try {
+                // Connection
+                stmt = con.createStatement();
+                // Execute query
+                stmt.executeUpdate(query);
+                System.out.println("\n--Table " + tableName + " created--");
+            } catch (SQLException ex) {
+                System.out.println("\n--Query did not execute--");
+                ex.printStackTrace();
+            }
         }
+
+        // Method to insert data
+            public void insertData(String tableName) {
+            // SQL query
+                String query = "insert into " + tableName + "(" +
+                        "myName, address) " +
+                        "values ('Douglas', 'My address'), " +
+                        "('Bob', 'His address'), " +
+                        "('John', 'Their address')";
+               try {
+                   // Connect
+                   stmt = con.createStatement();
+                   // Execute query
+                   stmt.executeUpdate(query);
+                   System.out.println("\n--Data inserted into table " + tableName + "--");
+               }
+               catch (SQLException ex) {
+                   // Handle exception
+                   System.out.println("\n--Query did not execute--");
+                   ex.printStackTrace();
+               }
     }
+
 
 
 }
