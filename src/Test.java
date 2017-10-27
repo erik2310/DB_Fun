@@ -1,8 +1,11 @@
 public class Test {
 
     public static void main(String[] args) {
-        DB_Connector db_connector = new DB_Connector();
-        db_connector.connect();
+        // DB_Connector.connect();
+        DB_Statements stmts = new DB_Statements();
+        stmts.createNewDB();
     }
+
+
 
 }
