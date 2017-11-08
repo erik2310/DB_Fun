@@ -12,6 +12,9 @@ public class DB_Statements {
     // Declare a result set
     private static ResultSet rs = null;
 
+    // Declare a prepared statement
+    private static PreparedStatement pst = null;
+
     // Method to create a new Database
     public void createNewDB(String DB_Name) {
         // SQL Statement
@@ -86,6 +89,7 @@ public class DB_Statements {
             ex.printStackTrace();
         }
     }
+
     //Method to read data from table
     public void selectFromTable(String tableName) {
         //SQL query
@@ -100,14 +104,35 @@ public class DB_Statements {
 
             // Get data
             while (rs.next()) {
-                int id = rs.getInt(1); // Returns the id column
-                String myName = rs.getString("myName"); // Returns myName column
-                String address = rs.getString("address"); // Returns address column
-                System.out.println(id + "\t\t" + myName + "\t\t" + address);
+                int id = rs.getInt(1);  // Returns ID(column 1)
+                String MyName = rs.getString("MyName"); // Returns MyName (column 2)
+                String address = rs.getString("address"); // Returns address (column 3)
+                System.out.println(id + "\t\t" + MyName + "\t\t" + address);
+            }
+        } catch (SQLException ex) {
+            System.out.println("\n--Query didn't execute--");
+            ex.printStackTrace();
+            }
+
+    }
+
+    //Checking user credentials
+    public Boolean checkLogin(String username, String password) {
+        boolean check = false;      // Boolean til at checke om username/password er rigtige. False som default.
+
+        String query = "select * from thisdatabase.user where username = (?) and password = (?)";
+        try {
+            // stat = con.createStatement();
+            pst = con.prepareStatement(query);
+            // rs = stat.executeQuery(query);
+
+            while (rs.next()) {
+                check = true;
             }
         } catch (SQLException ex) {
             System.out.println("\n--Query did not execute--");
             ex.printStackTrace();
         }
+        return check;
     }
 }
